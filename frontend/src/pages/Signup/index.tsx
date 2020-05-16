@@ -16,9 +16,9 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 interface SignUpFormData {
-  usunome: string;
-  usuemail: string;
-  ususenha: string;
+  name: string;
+  email: string;
+  password: string;
 }
 
 const SignUp: React.FC = () => {
@@ -32,18 +32,18 @@ const SignUp: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          usunome: Yup.string().required('Nome obrigatório'),
-          usuemail: Yup.string()
+          name: Yup.string().required('Nome obrigatório'),
+          email: Yup.string()
             .required('Email Obrigatório')
             .email('Digite um E-mail válido'),
-          ususenha: Yup.string().min(6, 'No mínimo 6 dígitos'),
+          password: Yup.string().min(6, 'No mínimo 6 dígitos'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await api.post('/usuarios', data);
+        await api.post('/users', data);
 
         history.push('/');
 
@@ -82,10 +82,10 @@ const SignUp: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu cadastro</h1>
 
-            <Input name="usunome" icon={FiUser} placeholder="Nome" />
-            <Input name="usuemail" icon={FiMail} placeholder="E-mail" />
+            <Input name="name" icon={FiUser} placeholder="Nome" />
+            <Input name="email" icon={FiMail} placeholder="E-mail" />
             <Input
-              name="ususenha"
+              name="password"
               icon={FiLock}
               type="password"
               placeholder="Senha"

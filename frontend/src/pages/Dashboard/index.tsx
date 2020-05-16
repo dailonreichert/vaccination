@@ -5,7 +5,7 @@ import logoImg from '../../assets/logo.svg';
 import { Container } from './styles';
 
 function Dashboard(): JSX.Element {
-  const usunome = localStorage.getItem('@AnimalVaccination:usuarioNome');
+  const name = localStorage.getItem('@AnimalVaccination:userName');
 
   const history = useHistory();
 
@@ -21,7 +21,7 @@ function Dashboard(): JSX.Element {
         <img src={logoImg} alt="animal-vaccination" />
         <span>
           Bem Vindo(a),
-          {` ${usunome}`}
+          {` ${name}`}
         </span>
 
         <Link className="button" to="animais/novo">

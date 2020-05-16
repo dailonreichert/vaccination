@@ -2,19 +2,19 @@ import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../services/api';
 
 interface SignInCredentials {
-  usuemail: string;
-  ususenha: string;
+  email: string;
+  password: string;
 }
 
 interface AuthContextState {
-  usuario: object;
+  user: object;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
 
 interface AuthState {
   token: string;
-  usuario: object;
+  user: object;
 }
 
 const AuthContext = createContext<AuthContextState>({} as AuthContextState);
@@ -22,36 +22,36 @@ const AuthContext = createContext<AuthContextState>({} as AuthContextState);
 export const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@AnimalVaccination:token');
-    const usuario = localStorage.getItem('@AnimalVaccination:usuario');
+    const user = localStorage.getItem('@AnimalVaccination:user');
 
-    if (token && usuario) {
-      return { token, usuario: JSON.parse(usuario) };
+    if (token && user) {
+      return { token, user: JSON.parse(user) };
     }
 
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ usuemail, ususenha }) => {
-    const response = await api.post('sessoes', { usuemail, ususenha });
+  const signIn = useCallback(async ({ email, password }) => {
+    const response = await api.post('sessions', { email, password });
 
-    const { token, usuario } = response.data;
+    const { token, user } = response.data;
 
     localStorage.setItem('@AnimalVaccination:token', token);
-    localStorage.setItem('@AnimalVaccination:usuario', JSON.stringify(usuario));
-    localStorage.setItem('@AnimalVaccination:usuarioNome', usuario.usunome);
+    localStorage.setItem('@AnimalVaccination:user', JSON.stringify(user));
+    localStorage.setItem('@AnimalVaccination:userName', user.name);
 
-    setData({ token, usuario });
+    setData({ token, user });
   }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@AnimalVaccination:token');
-    localStorage.removeItem('@AnimalVaccination:usuario');
+    localStorage.removeItem('@AnimalVaccination:user');
 
     setData({} as AuthState);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ usuario: data.usuario, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

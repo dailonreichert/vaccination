@@ -14,8 +14,8 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 interface SignInFormData {
-  usuemail: string;
-  ususenha: string;
+  email: string;
+  password: string;
 }
 
 const SignIn: React.FC = () => {
@@ -31,10 +31,10 @@ const SignIn: React.FC = () => {
       try {
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
-          usuemail: Yup.string()
+          email: Yup.string()
             .required('Email obrigatório')
             .email('Digite um E-mail válido'),
-          ususenha: Yup.string().required('Senha obrigatória'),
+          password: Yup.string().required('Senha obrigatória'),
         });
 
         await schema.validate(data, {
@@ -42,8 +42,8 @@ const SignIn: React.FC = () => {
         });
 
         await signIn({
-          usuemail: data.usuemail,
-          ususenha: data.ususenha,
+          email: data.email,
+          password: data.password,
         });
 
         history.push('/dashboard');
@@ -75,9 +75,9 @@ const SignIn: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu login</h1>
 
-            <Input name="usuemail" icon={FiMail} placeholder="E-mail" />
+            <Input name="email" icon={FiMail} placeholder="E-mail" />
             <Input
-              name="ususenha"
+              name="password"
               icon={FiLock}
               type="password"
               placeholder="Senha"
