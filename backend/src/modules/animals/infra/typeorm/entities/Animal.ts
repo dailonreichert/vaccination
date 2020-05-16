@@ -10,20 +10,20 @@ import {
 
 import User from '../../../../users/infra/typeorm/entities/User';
 
-@Entity('appointments')
-class Appointment {
+@Entity('animals')
+class Animal {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  provider_id: string;
+  user_id: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'provider_id' })
-  provider: User;
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
-  @Column('timestamp with time zone')
-  date: Date;
+  @Column()
+  description: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -32,4 +32,4 @@ class Appointment {
   updated_at: Date;
 }
 
-export default Appointment;
+export default Animal;
