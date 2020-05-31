@@ -1,7 +1,12 @@
-import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
+import {
+  MigrationInterface,
+  QueryRunner,
+  TableColumn,
+  TableForeignKey,
+} from 'typeorm';
 
-export class AlterUserFieldToUserId1589669556447 implements MigrationInterface {
-
+export default class AlterUserFieldToUserId1589669556447
+  implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropColumn('animals', 'user');
 
@@ -27,18 +32,17 @@ export class AlterUserFieldToUserId1589669556447 implements MigrationInterface {
     );
   }
 
-    public async down(queryRunner: QueryRunner): Promise<any> {
-      await queryRunner.dropForeignKey('animals', 'AnimalUser');
+  public async down(queryRunner: QueryRunner): Promise<any> {
+    await queryRunner.dropForeignKey('animals', 'AnimalUser');
 
-      await queryRunner.dropColumn('animals', 'user_id');
+    await queryRunner.dropColumn('animals', 'user_id');
 
-      await queryRunner.addColumn(
-        'animals',
-        new TableColumn({
-          name: 'user',
-          type: 'uuid',
-        }),
-      );
-    }
-
+    await queryRunner.addColumn(
+      'animals',
+      new TableColumn({
+        name: 'user',
+        type: 'uuid',
+      }),
+    );
+  }
 }

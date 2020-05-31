@@ -44,12 +44,12 @@ class SendForgotPasswordEmailService {
         email: user.email,
       },
 
-      subject: '[GoBarber] Recuperação de senha',
+      subject: '[AnimalVaccination] Recuperação de senha',
       templateData: {
         file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          link: `${process.env.APP_WEB_URL}/reset_password?token${token}`,
+          link: `${process.env.APP_WEB_URL}/reset-password?token${token}`,
         },
       },
     });

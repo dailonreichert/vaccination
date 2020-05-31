@@ -20,7 +20,7 @@
   "type": "mongodb",
   "host": "localhost",
   "port": 27017,
-  "database": "gobarber",
+  "database": "animal_vaccination",
   "useUnifiedTopology": true,
   "entities": [
     "./src/modules/**/infra/typeorm/schemas/*.ts"

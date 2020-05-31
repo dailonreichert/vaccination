@@ -1,7 +1,6 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateAnimals1589669287524 implements MigrationInterface {
-
+export default class CreateAnimals1589669287524 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -37,8 +36,7 @@ export class CreateAnimals1589669287524 implements MigrationInterface {
     );
   }
 
-    public async down(queryRunner: QueryRunner): Promise<any> {
-      await queryRunner.dropTable('animals');
-    }
-
+  public async down(queryRunner: QueryRunner): Promise<any> {
+    await queryRunner.dropTable('animals');
+  }
 }
