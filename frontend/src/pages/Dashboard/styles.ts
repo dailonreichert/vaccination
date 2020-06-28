@@ -3,6 +3,25 @@ import { shade } from 'polished';
 
 export const Container = styled.div``;
 
+export const Acctions = styled.div`
+  max-width: 1120px;
+
+  button {
+    margin-left: 1460px;
+    margin-top: 10px;
+    background: #b8703d;
+    border: 0;
+    border-radius: 5px;
+    width: 380px;
+    height: 60px;
+    color: #f4ede8;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+`;
+
 export const Header = styled.header`
   padding: 32px 0;
   background: #999999;

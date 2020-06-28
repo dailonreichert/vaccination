@@ -7,7 +7,7 @@ import 'react-day-picker/lib/style.css';
 
 import { FiPower, FiClock } from 'react-icons/fi';
 import { parseISO } from 'date-fns/esm';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -19,6 +19,7 @@ import {
   NextAppointment,
   Section,
   Appointment,
+  Acctions,
 } from './styles';
 import logoImg from '../../assets/logo-dash.svg';
 import { useAuth } from '../../hooks/auth';
@@ -45,6 +46,8 @@ const Dashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+
+  const history = useHistory();
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available && !modifiers.disabled) {
@@ -180,6 +183,32 @@ const Dashboard: React.FC = () => {
           />
         </Calendar>
       </Content>
+      <Acctions>
+        <button
+          type="button"
+          onClick={() => {
+            history.push('/animals');
+          }}
+        >
+          Animais
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            history.push('/vaccines');
+          }}
+        >
+          Vacinas
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            history.push('/animals');
+          }}
+        >
+          Marcar Vacina
+        </button>
+      </Acctions>
     </Container>
   );
 };

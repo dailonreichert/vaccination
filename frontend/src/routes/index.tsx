@@ -4,6 +4,8 @@ import { Switch } from 'react-router-dom';
 import SignIn from '../pages/Signin';
 import SignUp from '../pages/Signup';
 import Dashboard from '../pages/Dashboard';
+import Animals from '../pages/Animals';
+import Vaccines from '../pages/Vaccines';
 import Route from './Route';
 
 import ForgotPassword from '../pages/ForgotPassword';
@@ -19,6 +21,8 @@ const Routes: React.FC = () => (
 
     <Route path="/profile" component={Profile} isPrivate />
     <Route path="/dashboard" component={Dashboard} isPrivate />
+    <Route path="/animals" component={Animals} isPrivate />
+    <Route path="/vaccines" component={Vaccines} isPrivate />
   </Switch>
 );
 

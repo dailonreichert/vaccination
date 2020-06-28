@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 
 import User from '../../../../users/infra/typeorm/entities/User';
+import Vaccine from '../../../../vaccines/infra/typeorm/entities/Vaccine';
+import Animal from '../../../../animals/infra/typeorm/entities/Animal';
 
 @Entity('appointments')
 class Appointment {
@@ -16,11 +18,18 @@ class Appointment {
   id: string;
 
   @Column()
-  provider_id: string;
+  animal_id: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'provider_id' })
-  provider: User;
+  @ManyToOne(() => Animal)
+  @JoinColumn({ name: 'animal_id' })
+  animal: Animal;
+
+  @Column()
+  vaccine_id: string;
+
+  @ManyToOne(() => Vaccine)
+  @JoinColumn({ name: 'vaccine_id' })
+  vaccine: Vaccine;
 
   @Column()
   user_id: string;

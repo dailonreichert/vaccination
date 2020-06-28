@@ -14,11 +14,7 @@ class CreateAnimalService {
     private animalsRepository: IAnimalsRepository,
   ) {}
 
-  public async execute({
-    user_id,
-    description,
-  }: IRequestDTO): Promise<Animal> {
-
+  public async execute({ user_id, description }: IRequestDTO): Promise<Animal> {
     const animal = await this.animalsRepository.create({
       user_id,
       description,

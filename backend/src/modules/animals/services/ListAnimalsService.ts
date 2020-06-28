@@ -1,7 +1,6 @@
 import { inject, injectable } from 'tsyringe';
-import AppError from '@shared/errors/AppError';
-import User from '@modules/users/infra/typeorm/entities/User';
 import IAnimalRepository from '../repositories/IAnimalsRepository';
+import Animal from '../infra/typeorm/entities/Animal';
 
 interface IRequest {
   user_id: string;
@@ -14,15 +13,11 @@ class ListAnimalsService {
     private animalRepository: IAnimalRepository,
   ) {}
 
-  /*public async execute({ user_id }: IRequest): Promise<User> {
-    const user = await this.animalRepository.find({ where: {user_id}});
+  public async execute({ user_id }: IRequest): Promise<Animal[]> {
+    const animal = await this.animalRepository.index(user_id);
 
-    if (!user) {
-      throw new AppError('User not found');
-    }
-
-    return user;
-  }*/
+    return animal;
+  }
 }
 
 export default ListAnimalsService;

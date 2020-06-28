@@ -3,4 +3,5 @@ import ICreateAppointmentDTO from '../dtos/ICreateAnimalDTO';
 
 export default interface IAppointmentsRepository {
   create(data: ICreateAppointmentDTO): Promise<Animal>;
+  index(data: string): Promise<Animal[]>;
 }

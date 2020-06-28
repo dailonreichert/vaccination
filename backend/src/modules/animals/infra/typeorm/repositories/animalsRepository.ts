@@ -14,11 +14,19 @@ class AnimalsRepository implements IAnimalsRepository {
     user_id,
     description,
   }: ICreateAnimalDTO): Promise<Animal> {
-    const Animal = this.ormRepository.create({ user_id, description });
+    const animal = this.ormRepository.create({ user_id, description });
 
-    await this.ormRepository.save(Animal);
+    await this.ormRepository.save(animal);
 
-    return Animal;
+    return animal;
+  }
+
+  public async index(user_id: string): Promise<Animal[]> {
+    const animals = await this.ormRepository.find({
+      where: { user_id },
+    });
+
+    return animals;
   }
 }
 

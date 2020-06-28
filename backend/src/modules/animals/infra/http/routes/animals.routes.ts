@@ -19,4 +19,6 @@ animalsRouter.post(
   animalsController.create,
 );
 
+animalsRouter.get('/', animalsController.index);
+
 export default animalsRouter;
