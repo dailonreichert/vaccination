@@ -10,6 +10,11 @@ interface IRequest {
   year: number;
 }
 
+interface IRequestList {
+  user_id: string;
+  animal_id: string;
+}
+
 @injectable()
 class ListProviderAppointmentsService {
   constructor(
@@ -29,6 +34,20 @@ class ListProviderAppointmentsService {
         year,
         month,
         day,
+      },
+    );
+
+    return appointments;
+  }
+
+  public async list({
+    user_id,
+    animal_id,
+  }: IRequestList): Promise<Appointment[]> {
+    const appointments = await this.appointmentsRepository.findAllFromProviderAnimal(
+      {
+        user_id,
+        animal_id,
       },
     );
 

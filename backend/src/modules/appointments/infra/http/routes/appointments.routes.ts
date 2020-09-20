@@ -14,12 +14,16 @@ appointmentsRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      provider_id: Joi.string().uuid().required(),
+      animal_id: Joi.string().uuid().required(),
+      vaccine_id: Joi.string().uuid().required(),
       date: Joi.date(),
     },
   }),
   appointmentsController.create,
 );
+
 appointmentsRouter.get('/me', providerAppointmentsController.index);
+appointmentsRouter.get('/all', providerAppointmentsController.all);
+appointmentsRouter.delete('/delete', providerAppointmentsController.delete);
 
 export default appointmentsRouter;

@@ -2,6 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 import IAnimalsRepository from '@modules/animals/repositories/IAnimalsRepository';
 import Animal from '../entities/Animal';
 import ICreateAnimalDTO from '../../../dtos/ICreateAnimalDTO';
+import IDeleteAnimalDTO from '../../../dtos/IDeleteAnimalDTO';
 
 class AnimalsRepository implements IAnimalsRepository {
   private ormRepository: Repository<Animal>;
@@ -27,6 +28,18 @@ class AnimalsRepository implements IAnimalsRepository {
     });
 
     return animals;
+  }
+
+  public async delete({
+    user_id,
+    animal_id,
+  }: IDeleteAnimalDTO): Promise<boolean> {
+    this.ormRepository.delete({
+      user_id,
+      id: animal_id,
+    });
+
+    return true;
   }
 }
 

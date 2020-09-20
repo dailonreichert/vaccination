@@ -3,25 +3,6 @@ import { shade } from 'polished';
 
 export const Container = styled.div``;
 
-export const Acctions = styled.div`
-  max-width: 1120px;
-
-  button {
-    margin-left: 1460px;
-    margin-top: 10px;
-    background: #b8703d;
-    border: 0;
-    border-radius: 5px;
-    width: 380px;
-    height: 60px;
-    color: #f4ede8;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-`;
-
 export const Header = styled.header`
   padding: 32px 0;
   background: #999999;
@@ -119,7 +100,7 @@ export const Schedule = styled.div`
 `;
 
 export const Calendar = styled.aside`
-  width: 380px;
+  width: 480px;
 
   .DayPicker {
     background: #28262e;
@@ -128,6 +109,7 @@ export const Calendar = styled.aside`
 
   .DayPicker-wrapper {
     padding-bottom: 0;
+    padding-right: 35px;
   }
 
   .DayPicker,
@@ -247,44 +229,21 @@ export const NextAppointment = styled.div`
 
 export const Appointment = styled.div`
   display: flex;
-  align-items: center;
 
   & + div {
     margin-top: 16px;
   }
 
-  span {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    color: #f4ede8;
-    width: 70px;
-
-    svg {
-      color: #b8703d;
-      margin-right: 8px;
-    }
-  }
-
   div {
     flex: 1;
     background: #3e3b47;
-    display: flex;
-    align-items: center;
-    padding: 16px 24px;
+    padding: 5px 0 5px 5px;
     border-radius: 10px;
-    margin-left: 24px;
-
-    img {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-    }
 
     strong {
-      margin-left: 24px;
-      color: #fff;
-      font-size: 20px;
+      margin-left: 5px;
+      color: #f4ede8;
+      font-size: 18px;
     }
   }
 `;

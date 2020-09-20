@@ -5,7 +5,10 @@ import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
-import { FiPower, FiClock } from 'react-icons/fi';
+
+import { FiPower, FiClock, } from 'react-icons/fi';
+import { GiCow, GiLoveInjection, GiTripleNeedle} from 'react-icons/gi';
+
 import { parseISO } from 'date-fns/esm';
 import { Link, useHistory } from 'react-router-dom';
 import {
@@ -16,27 +19,28 @@ import {
   Content,
   Schedule,
   Calendar,
-  NextAppointment,
   Section,
   Appointment,
-  Acctions,
 } from './styles';
 import logoImg from '../../assets/logo-dash.svg';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 
-interface MonthAvailabilityItem {
-  day: number;
-  available: boolean;
-}
 
 interface Appointment {
   id: string;
   date: string;
-  hourFormatted: string;
+
+  vaccine:{
+    name: string;
+  };
+
+  animal:{
+    description: string;
+  };
+
   user: {
     name: string;
-    avatar_url: string;
   };
 }
 
@@ -61,14 +65,13 @@ const Dashboard: React.FC = () => {
         params: {
           year: selectedDate.getFullYear(),
           month: selectedDate.getMonth() + 1,
-          day: selectedDate.getDate(),
+          day: selectedDate.getDate() - 1,
         },
       })
       .then(response => {
         const appointmentsFormatted = response.data.map(appointment => {
           return {
             ...appointment,
-            hourFormatted: format(parseISO(appointment.date), 'HH:mm'),
           };
         });
 
@@ -85,12 +88,6 @@ const Dashboard: React.FC = () => {
   const selectedWeekDay = useMemo(() => {
     return format(selectedDate, 'cccc', { locale: ptBR });
   }, [selectedDate]);
-
-  const nextAppointment = useMemo(() => {
-    return appointments.find(appointment =>
-      isAfter(parseISO(appointment.date), new Date()),
-    );
-  }, [appointments]);
 
   return (
     <Container>
@@ -123,34 +120,20 @@ const Dashboard: React.FC = () => {
             <span>{selectedWeekDay}</span>
           </p>
 
-          {isToday(selectedDate) && nextAppointment && (
-            <NextAppointment>
-              <strong>Agendamento a seguir</strong>
-              <div>
-                <strong>{nextAppointment.user.name}</strong>
-                <span>
-                  <FiClock />
-                  {nextAppointment.hourFormatted}
-                </span>
-              </div>
-            </NextAppointment>
-          )}
-
           <Section>
             {appointments.length === 0 && <p>Nenhum agendamento nesta data</p>}
 
             {appointments.map(appointment => (
               <Appointment key={appointment.id}>
-                <span>
-                  <FiClock />
-                  {appointment.hourFormatted}
-                </span>
                 <div>
-                  <img
-                    src={appointment.user.avatar_url}
-                    alt={appointment.user.name}
-                  />
-                  <strong>{appointment.user.name}</strong>
+                  <div>
+                    <GiCow size="30px" color="#b8703d"/>
+                    <strong>{appointment.animal.description}</strong>
+                  </div>
+                  <div>
+                  <GiTripleNeedle size="30px" color="#b8703d"/>
+                  <strong>{appointment.vaccine.name}</strong>
+                  </div>
                 </div>
               </Appointment>
             ))}
@@ -183,32 +166,6 @@ const Dashboard: React.FC = () => {
           />
         </Calendar>
       </Content>
-      <Acctions>
-        <button
-          type="button"
-          onClick={() => {
-            history.push('/animals');
-          }}
-        >
-          Animais
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            history.push('/vaccines');
-          }}
-        >
-          Vacinas
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            history.push('/animals');
-          }}
-        >
-          Marcar Vacina
-        </button>
-      </Acctions>
     </Container>
   );
 };

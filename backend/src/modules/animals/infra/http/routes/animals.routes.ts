@@ -12,7 +12,6 @@ animalsRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      user_id: Joi.string().uuid().required(),
       description: Joi.string(),
     },
   }),
@@ -20,5 +19,6 @@ animalsRouter.post(
 );
 
 animalsRouter.get('/', animalsController.index);
+animalsRouter.delete('/delete', animalsController.delete);
 
 export default animalsRouter;

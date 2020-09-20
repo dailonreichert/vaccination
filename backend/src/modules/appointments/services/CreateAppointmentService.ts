@@ -1,6 +1,6 @@
-import { startOfHour, format } from 'date-fns';
+import { startOfHour } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
-import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+
 import Appontment from '../infra/typeorm/entities/Appointment';
 import IAppointmetsRepository from '../repositories/IAppointmentsRepository';
 
@@ -15,10 +15,7 @@ interface IRequestDTO {
 class CreateAppointmentService {
   constructor(
     @inject('AppointmentsRepository')
-    private appointmentsRepository: IAppointmetsRepository,
-
-    @inject('NotificationsRepository')
-    private notificationsRepository: INotificationsRepository,
+    private appointmentsRepository: IAppointmetsRepository, // @inject('NotificationsRepository') // private notificationsRepository: INotificationsRepository,
   ) {}
 
   public async execute({
@@ -34,13 +31,6 @@ class CreateAppointmentService {
       vaccine_id,
       user_id,
       date: hourOfDate,
-    });
-
-    const dateFormated = format(hourOfDate, "dd/MM/yyyy 'às' HH:mm'h'");
-
-    await this.notificationsRepository.create({
-      recipient_id: user_id,
-      content: `Novo agendamento para dia ${dateFormated}`,
     });
 
     return appointment;
